@@ -1,5 +1,5 @@
-const getGoods = function () {
-  const links = document.querySelectorAll(".navigation-link"); // Ссылки нав. меню
+const viewAll = function () {
+  const linkMore = document.querySelector(".more"); // Ссылка на весь товар
 
   // Отрисовываем карточки
   const renderGoods = (goods) => {
@@ -37,17 +37,12 @@ const getGoods = function () {
   };
 
   // Обработчик данных с сервера
-  const getData = function (value, category) {
+  const getData = function (value) {
     fetch("/db/db.json")
       .then((res) => res.json())
       .then((data) => {
-        // Фильтр данных
-        const aray = category
-          ? data.filter((item) => item[category] === value)
-          : data;
-
         // Воозвращаем базу
-        localStorage.setItem("goods", JSON.stringify(aray));
+        localStorage.setItem("goods", JSON.stringify(data));
 
         if (window.location.pathname !== "/goods.html") {
           window.location.href = "/goods.html";
@@ -57,23 +52,7 @@ const getGoods = function () {
       });
   };
 
-  // Cохранем базу в LocalStorage
-  links.forEach(function (item) {
-    item.addEventListener("click", function (event) {
-      event.preventDefault;
-      const linkValue = item.textContent;
-      const category = item.dataset.field;
-
-      getData(linkValue, category);
-    });
-  });
-
-  // Проверяем наличие данных
-  if (
-    localStorage.getItem("goods") &&
-    window.location.pathname === "/goods.html"
-  ) {
-    renderGoods(JSON.parse(localStorage.getItem("goods")));
-  }
+  // При нажатии отправляет в goods и отрисовывет весь товар
+  linkMore.onclick = () => getData(linkMore.textContent);
 };
-getGoods();
+viewAll();
