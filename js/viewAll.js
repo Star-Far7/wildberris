@@ -1,4 +1,4 @@
-const viewAll = function () {
+const getViewAll = function () {
   const linkMore = document.querySelector(".more"); // Ссылка на весь товар
 
   // Отрисовываем карточки
@@ -55,4 +55,4 @@ const viewAll = function () {
   // При нажатии отправляет в goods и отрисовывет весь товар
   linkMore.onclick = () => getData(linkMore.textContent);
 };
-viewAll();
+getViewAll();
