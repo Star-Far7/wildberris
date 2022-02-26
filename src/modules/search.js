@@ -1,5 +1,6 @@
-const getViewAll = function () {
-  const linkMore = document.querySelector(".more"); // Ссылка на весь товар
+export const search = function () {
+  const input = document.querySelector(".search-block > input"); // input сторики поиска
+  const searchBtn = document.querySelector(".search-block > button"); // Кнопка сторки поиска
 
   // Отрисовываем карточки
   const renderGoods = (goods) => {
@@ -41,8 +42,13 @@ const getViewAll = function () {
     fetch("/db/db.json")
       .then((res) => res.json())
       .then((data) => {
+        // Фильтр данных
+        const aray = data.filter((good) =>
+          good.name.toLowerCase().includes(value.toLowerCase())
+        );
+
         // Воозвращаем базу
-        localStorage.setItem("goods", JSON.stringify(data));
+        localStorage.setItem("goods", JSON.stringify(aray));
 
         if (window.location.pathname !== "/goods.html") {
           window.location.href = "/goods.html";
@@ -52,7 +58,6 @@ const getViewAll = function () {
       });
   };
 
-  // При нажатии отправляет в goods и отрисовывет весь товар
-  linkMore.onclick = () => getData(linkMore.textContent);
+  // Отправляем значение строки поиска
+  searchBtn.onclick = () => getData(input.value);
 };
-getViewAll();

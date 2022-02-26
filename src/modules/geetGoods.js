@@ -1,5 +1,6 @@
-const getGoods = function () {
+export const getGoods = function () {
   const links = document.querySelectorAll(".navigation-link"); // Ссылки нав. меню
+  const viewMore = document.querySelector(".more"); // кнопка больше
 
   // Отрисовываем карточки
   const renderGoods = (goods) => {
@@ -75,5 +76,13 @@ const getGoods = function () {
   ) {
     renderGoods(JSON.parse(localStorage.getItem("goods")));
   }
+
+  // Функция кнопки больше
+  if (viewMore) {
+    viewMore.addEventListener("click", function (event) {
+      event.preventDefault;
+
+      getData();
+    });
+  }
 };
-getGoods();
